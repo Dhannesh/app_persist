@@ -1,3 +1,4 @@
+import 'package:app_persist/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: AboutPage(),
+      home: OrdersPage(),
     );
   }
 }
