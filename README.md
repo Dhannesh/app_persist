@@ -12,4 +12,6 @@ The documents directory allows the app to store files where only the app can acc
 
 Now let's move on to discussing the third technique that you can use to persist data using SQLite.  SQLite is a database engine written in the C programming language. SQLite is actually an embedded database. Software developers use the SQLite library, and that database is embedded into the application. If you want to persist large amounts of data on your local device, you need a way to store and query this data efficiently. You need an interface that supports SQL queries, allowing you to access and manipulate data. That's when SQLite is really useful. This also means that the data that you store in SQLite can be more complex. You can have entities with multiple attributes. You also get faster performance from your queries for inserts, deletes, and updates when you use SQLite. When you use SQLite from within Flutter, you'll need to use the **SQFlite** package. This is what gives you the classes and functions that you need to interact with the SQLite database. In addition, you'll need to use the **path package**, which gives you functions to define the location for where you want the database to be stored on disk.
 
+## Reading Text Data Using the Flutter Services Library
+
 
