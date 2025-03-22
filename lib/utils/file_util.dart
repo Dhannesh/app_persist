@@ -15,6 +15,19 @@ class FileUtil {
 
     return shoppingNotesDirPath;
   }
+  static Future<List<File>> listNotes() async {
+    final shoppingNotesDirPath = await _getShoppingNotesDirPath();
+    List<File> notesFiles=[];
+    List<FileSystemEntity> listFse = Directory(shoppingNotesDirPath).listSync();
+    for(var fse in listFse)
+      {
+        if(fse is File)
+          {
+            notesFiles.add(fse);
+          }
+      }
+    return notesFiles;
+  }
 
   static Future<String> readNote() async {
     final shoppingNotesDirPath = await _getShoppingNotesDirPath();

@@ -1,5 +1,6 @@
 import 'package:app_persist/home_page.dart';
 import 'package:app_persist/orders_page.dart';
+import 'package:app_persist/shopping_notes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: HomePage(),
+      home: ShoppingNotes(),
     );
   }
 }
