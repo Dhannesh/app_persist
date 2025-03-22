@@ -29,10 +29,10 @@ class FileUtil {
     return notesFiles;
   }
 
-  static Future<String> readNote() async {
+  static Future<String> readNote(String noteName) async {
     final shoppingNotesDirPath = await _getShoppingNotesDirPath();
 
-    final shoppingNotePath = join(shoppingNotesDirPath, "notes.txt");
+    final shoppingNotePath = join(shoppingNotesDirPath, noteName);
     final notesFile = File(shoppingNotePath);
 
     final contents = await notesFile.readAsString();
@@ -40,12 +40,18 @@ class FileUtil {
     return contents;
   }
 
-  static Future<void> writeNote(String fileContent) async {
+  static Future<void> writeNote(String noteName,String fileContent) async {
     final shoppingNotesDirPath = await _getShoppingNotesDirPath();
 
-    final shoppingNotePath = join(shoppingNotesDirPath, "notes.txt");
+    final shoppingNotePath = join(shoppingNotesDirPath, noteName);
     final notesFile = File(shoppingNotePath);
 
     await notesFile.writeAsString(fileContent);
+  }
+  static Future<void> deleteNote(String noteName) async {
+    final shoppingNotesDirPath = await _getShoppingNotesDirPath();
+    final shoppingNotePath = join(shoppingNotesDirPath, noteName);
+    final notesFile = File(shoppingNotePath);
+    await notesFile.delete();
   }
 }

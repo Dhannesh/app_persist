@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               )
           ),
           ElevatedButton(onPressed: (){
-            FileUtil.writeNote(_textController.text);
+            FileUtil.writeNote("notes.txt",_textController.text);
             _textController.clear();
           }, child: Text('Save')
           ),
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
               onPressed: () async {
-                _content = await FileUtil.readNote();
+                _content = await FileUtil.readNote("notes.txt");
                 setState(() {
                 });
               },

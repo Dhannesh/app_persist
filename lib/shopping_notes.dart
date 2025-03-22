@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:app_persist/note.dart';
 import 'package:app_persist/utils/file_util.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -48,32 +49,49 @@ class _ShoppingNotesState extends State<ShoppingNotes> {
                         mainAxisSpacing: 4),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return InkWell(
-                          onTap: () {},
-                          child: Stack(
-                            children: <Widget>[
-                              Card(
-                                color: getRandomColor(),
-                                elevation: 5,
-                                margin: EdgeInsets.all(10.0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 220,
-                                  width: 220,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      basename(snapshot.data![index].path),
-                                      style: TextStyle(fontSize: 18),
+                      return Dismissible(
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          FileUtil.deleteNote(
+                              basename(snapshot.data![index].path));
+                        },
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Note(
+                                              noteFile: snapshot.data![index])))
+                                  .then((value) {
+                                notesFuture = FileUtil.listNotes();
+                                setState(() {});
+                              });
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Card(
+                                  color: getRandomColor(),
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(10.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 220,
+                                    width: 220,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        basename(snapshot.data![index].path),
+                                        style: TextStyle(fontSize: 18),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ));
+                                )
+                              ],
+                            )),
+                      );
                     }),
               );
             } else if (snapshot.hasError) {
@@ -84,7 +102,17 @@ class _ShoppingNotesState extends State<ShoppingNotes> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){}, child: Icon(Icons.message),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Note()))
+              .then((value) {
+            notesFuture = FileUtil.listNotes();
+            setState(() {});
+          });
+        },
+        child: Icon(Icons.message),
+      ),
     );
   }
 }
